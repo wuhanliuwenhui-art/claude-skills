@@ -1,4 +1,4 @@
 interface:
   display_name: "飞书接入引导"
-  short_description: "分步骤引导使用者完成飞书应用、机器人与用户授权接入"
-  default_prompt: "Use $feishu-connect-guide to guide the operator through Feishu app, bot, and user-authorization setup step by step."
+  short_description: "分步骤引导使用者完成飞书应用、机器人、知识库与用户授权接入"
+  default_prompt: "Use $feishu-connect-guide to guide the operator through Feishu app, bot, wiki, and user-authorization setup step by step."

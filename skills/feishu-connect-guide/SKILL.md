@@ -1,6 +1,6 @@
 ---
 name: feishu-connect-guide
-description: Guide the operator step by step through connecting a Feishu app, bot, calendar, docs, and wiki access, including local `.env` setup, app permissions, redirect URL configuration, bot long-connection setup, and user OAuth authorization. Use when the user wants to connect Feishu, bind a Feishu bot, enable Feishu notifications, access Feishu docs/calendar/wiki, or needs a click-by-click setup walkthrough.
+description: Guide the operator step by step through connecting a Feishu app, bot, calendar, docs, and wiki access, including local `.env` setup, app permissions, redirect URL configuration, bot long-connection setup, user OAuth authorization, wiki space linking, and default knowledge-base-first retrieval rules. Use when the user wants to connect Feishu, bind a Feishu bot, enable Feishu notifications, access Feishu docs/calendar/wiki, turn a Feishu wiki into a material library, or needs a click-by-click setup walkthrough.
 ---
 
 # 飞书接入引导
@@ -23,6 +23,7 @@ description: Guide the operator step by step through connecting a Feishu app, bo
    - API 权限没开
    - 资源本身没授权
    - 需要切到用户授权
+6. 如果用户要把某个飞书知识库当默认资料库，完成接入后继续执行“知识库挂载”和“默认检索规则”。
 
 ## 引导节奏
 
@@ -121,6 +122,43 @@ FEISHU_APP_SECRET=你的AppSecret
 2. 不够再切用户身份
 3. 仍然失败再提示补权限或补资源授权
 
+### 第 6 段：知识库挂载
+
+当用户说“把这个知识库作为资料库/物料库”时，继续执行：
+
+1. 让用户提供：
+   - Wiki 空间链接
+   - 或任意知识库页面链接
+2. 先验证：
+   - 单页能否读取
+   - 整个 Wiki 空间能否展开
+3. 如果应用身份无法展开空间，切到用户身份重试
+4. 读取顶层目录，确认知识库已接通
+5. 让用户确认是否把该知识库设为默认资料库
+
+知识库挂载时，读取 `references/wiki-linking.md`。
+
+### 第 7 段：默认检索规则
+
+当用户明确说“以后相关问题先查这个知识库”时，按以下规则执行：
+
+1. 先记录知识库的用途标签，例如：
+   - 增长
+   - 拉新
+   - 直播
+   - 销转
+   - 周报
+   - 媒体
+   - 产研
+2. 后续当用户问题命中这些主题时：
+   - 先查知识库
+   - 再给答案
+3. 如果知识库没有明确内容：
+   - 先告诉用户“知识库暂无明确答案”
+   - 再补充你的常规判断
+
+默认检索规则时，读取 `references/retrieval-rules.md`。
+
 ## 常见判断规则
 
 ### 机器人发不出消息
@@ -141,6 +179,14 @@ FEISHU_APP_SECRET=你的AppSecret
 直接判断为：
 - 应用身份权限不足
 - 应切换到用户授权读取 Wiki 空间
+
+### 用户要把知识库变成默认资料库
+
+直接执行：
+- 验证知识库空间访问
+- 拉取顶层目录
+- 记录检索主题
+- 后续相关问题优先查知识库
 
 ### 使用者说“我不会操作”
 
@@ -163,3 +209,5 @@ FEISHU_APP_SECRET=你的AppSecret
 
 - 需要给权限清单时，读取 `references/permission-checklist.md`
 - 需要给本地文件结构时，读取 `references/local-files.md`
+- 需要挂载知识库时，读取 `references/wiki-linking.md`
+- 需要设置默认检索规则时，读取 `references/retrieval-rules.md`
