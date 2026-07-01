@@ -1,0 +1,4 @@
+interface:
+  display_name: "销冠话术助手"
+  short_description: "基于飞书资料生成合规高成交销售回复"
+  default_prompt: "用销冠话术助手，根据客户问题生成可直接发给客户的微信回复。"
