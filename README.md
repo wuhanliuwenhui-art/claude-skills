@@ -131,6 +131,21 @@ cp -R claude-skills/skills/yangge-title ~/.codex/skills/
 
 配置项包括：销冠智能体资料体系、标准资料库、高成交话术库、销售聊天记录、成交微信号总表。
 
+小白用户安装后先看：
+
+```text
+~/.codex/skills/sales-champion-reply/GETTING_STARTED.md
+```
+
+或运行：
+
+```bash
+cd ~/.codex/skills/sales-champion-reply
+python3 tools/feishu/doctor.py
+```
+
+检查脚本会告诉使用者缺飞书应用凭证、授权 token，还是资料库链接。
+
 ---
 
 ## 目录结构

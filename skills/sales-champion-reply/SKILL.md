@@ -28,6 +28,14 @@ description: 销冠话术助手。用于销售把客户问题、企微聊天上�
 
 本地飞书资料读取工具随 skill 一起安装在 `tools/feishu/read_feishu_doc.py`。
 
+如果使用者是第一次安装，或工具提示缺少配置，先引导他打开 `GETTING_STARTED.md`，并运行：
+
+```bash
+python3 tools/feishu/doctor.py
+```
+
+不要直接要求小白理解 token、环境变量或 API。先按检查结果告诉他下一步该找谁要什么、该填哪个文件。
+
 常用命令：
 
 ```bash

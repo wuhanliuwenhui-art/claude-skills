@@ -2,6 +2,19 @@
 
 这个目录随 `sales-champion-reply` Skill 一起安装，用于读取飞书 wiki/docx 文档。
 
+第一次配置请先看：
+
+```text
+../../GETTING_STARTED.md
+```
+
+也可以先运行检查：
+
+```bash
+cd ~/.codex/skills/sales-champion-reply
+python3 tools/feishu/doctor.py
+```
+
 ## 配置
 
 复制 `.env.example` 为 `.env`，填写飞书应用凭证：
