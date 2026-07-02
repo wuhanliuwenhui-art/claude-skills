@@ -6,7 +6,6 @@ REPO_URL="${REPO_URL:-https://github.com/wuhanliuwenhui-art/claude-skills.git}"
 SKILL_NAME="${SKILL_NAME:-sales-champion-reply}"
 TARGET_DIR="${TARGET_DIR:-${HOME}/.codex/skills/${SKILL_NAME}}"
 TMP_DIR="$(mktemp -d)"
-BACKUP_SUFFIX="$(date +%Y%m%d-%H%M%S)"
 
 cleanup() {
   rm -rf "${TMP_DIR}"
@@ -26,13 +25,23 @@ fi
 mkdir -p "$(dirname "${TARGET_DIR}")"
 
 if [[ -e "${TARGET_DIR}" ]]; then
-  BACKUP_DIR="${TARGET_DIR}.bak.${BACKUP_SUFFIX}"
-  echo "==> 发现已存在 skill，先备份到 ${BACKUP_DIR}"
-  mv "${TARGET_DIR}" "${BACKUP_DIR}"
+  echo "==> 发现已存在 skill，原地更新 ${TARGET_DIR}"
+  if [[ -f "${TARGET_DIR}/references/local-sources.md" ]]; then
+    mkdir -p "${TMP_DIR}/preserve/references"
+    cp "${TARGET_DIR}/references/local-sources.md" "${TMP_DIR}/preserve/references/local-sources.md"
+  fi
+  rm -rf "${TARGET_DIR}/SKILL.md" "${TARGET_DIR}/agents" "${TARGET_DIR}/references"
+else
+  echo "==> 安装 skill 到 ${TARGET_DIR}"
+  mkdir -p "${TARGET_DIR}"
 fi
 
-echo "==> 安装 skill 到 ${TARGET_DIR}"
-cp -R "${SOURCE_DIR}" "${TARGET_DIR}"
+cp -R "${SOURCE_DIR}/." "${TARGET_DIR}/"
+
+if [[ -f "${TMP_DIR}/preserve/references/local-sources.md" ]]; then
+  mkdir -p "${TARGET_DIR}/references"
+  cp "${TMP_DIR}/preserve/references/local-sources.md" "${TARGET_DIR}/references/local-sources.md"
+fi
 
 LOCAL_SOURCES="${TARGET_DIR}/references/local-sources.md"
 

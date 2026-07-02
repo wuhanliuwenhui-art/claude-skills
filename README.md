@@ -56,6 +56,8 @@ curl -fsSL https://raw.githubusercontent.com/wuhanliuwenhui-art/claude-skills/ma
 curl -fsSL https://raw.githubusercontent.com/wuhanliuwenhui-art/claude-skills/main/scripts/install-sales-champion-reply.sh | bash
 ```
 
+重复执行同一条命令会原地更新同一个 `sales-champion-reply` Skill，并保留本地 `references/local-sources.md` 资料源配置，不会新增另一个 Skill。
+
 如果要一键写入团队飞书资料源，可在私下发给团队成员类似命令：
 
 ```bash
