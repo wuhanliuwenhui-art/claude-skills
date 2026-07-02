@@ -30,7 +30,15 @@ if [[ -e "${TARGET_DIR}" ]]; then
     mkdir -p "${TMP_DIR}/preserve/references"
     cp "${TARGET_DIR}/references/local-sources.md" "${TMP_DIR}/preserve/references/local-sources.md"
   fi
-  rm -rf "${TARGET_DIR}/SKILL.md" "${TARGET_DIR}/agents" "${TARGET_DIR}/references"
+  if [[ -f "${TARGET_DIR}/tools/feishu/.env" ]]; then
+    mkdir -p "${TMP_DIR}/preserve/tools/feishu"
+    cp "${TARGET_DIR}/tools/feishu/.env" "${TMP_DIR}/preserve/tools/feishu/.env"
+  fi
+  if [[ -f "${TARGET_DIR}/tools/feishu/user_token.json" ]]; then
+    mkdir -p "${TMP_DIR}/preserve/tools/feishu"
+    cp "${TARGET_DIR}/tools/feishu/user_token.json" "${TMP_DIR}/preserve/tools/feishu/user_token.json"
+  fi
+  rm -rf "${TARGET_DIR}/SKILL.md" "${TARGET_DIR}/agents" "${TARGET_DIR}/references" "${TARGET_DIR}/tools"
 else
   echo "==> 安装 skill 到 ${TARGET_DIR}"
   mkdir -p "${TARGET_DIR}"
@@ -41,6 +49,16 @@ cp -R "${SOURCE_DIR}/." "${TARGET_DIR}/"
 if [[ -f "${TMP_DIR}/preserve/references/local-sources.md" ]]; then
   mkdir -p "${TARGET_DIR}/references"
   cp "${TMP_DIR}/preserve/references/local-sources.md" "${TARGET_DIR}/references/local-sources.md"
+fi
+
+if [[ -f "${TMP_DIR}/preserve/tools/feishu/.env" ]]; then
+  mkdir -p "${TARGET_DIR}/tools/feishu"
+  cp "${TMP_DIR}/preserve/tools/feishu/.env" "${TARGET_DIR}/tools/feishu/.env"
+fi
+
+if [[ -f "${TMP_DIR}/preserve/tools/feishu/user_token.json" ]]; then
+  mkdir -p "${TARGET_DIR}/tools/feishu"
+  cp "${TMP_DIR}/preserve/tools/feishu/user_token.json" "${TARGET_DIR}/tools/feishu/user_token.json"
 fi
 
 LOCAL_SOURCES="${TARGET_DIR}/references/local-sources.md"
@@ -72,6 +90,11 @@ if [[ ! -f "${LOCAL_SOURCES}" ]]; then
 - 名称：${SALES_CHAMPION_DEAL_CUSTOMERS_NAME:-待填写}
 - 链接：${SALES_CHAMPION_DEAL_CUSTOMERS_URL:-待填写}
 
+## 成交微信号总表
+
+- 名称：${SALES_CHAMPION_DEAL_TABLE_NAME:-待填写}
+- 链接：${SALES_CHAMPION_DEAL_TABLE_URL:-待填写}
+
 ## 高成交话术库
 
 - 名称：${SALES_CHAMPION_TALK_LIBRARY_NAME:-待填写}
@@ -79,6 +102,18 @@ if [[ ! -f "${LOCAL_SOURCES}" ]]; then
 EOF
 fi
 
+FEISHU_ENV="${TARGET_DIR}/tools/feishu/.env"
+
+if [[ ! -f "${FEISHU_ENV}" && -n "${FEISHU_APP_ID:-}" && -n "${FEISHU_APP_SECRET:-}" ]]; then
+  mkdir -p "$(dirname "${FEISHU_ENV}")"
+  cat > "${FEISHU_ENV}" <<EOF
+FEISHU_APP_ID=${FEISHU_APP_ID}
+FEISHU_APP_SECRET=${FEISHU_APP_SECRET}
+FEISHU_REDIRECT_URI=${FEISHU_REDIRECT_URI:-http://127.0.0.1:8787/feishu/callback}
+EOF
+fi
+
 echo "==> 安装完成"
 echo "Skill 路径：${TARGET_DIR}"
 echo "你现在可以在对话里使用：\$sales-champion-reply"
+echo "飞书读取工具：${TARGET_DIR}/tools/feishu/read_feishu_doc.py"

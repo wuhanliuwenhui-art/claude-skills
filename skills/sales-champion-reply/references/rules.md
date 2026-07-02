@@ -30,6 +30,12 @@
 这个点我不能直接替你确认，资料库里没有明确说明。建议先找负责人确认后再回复客户，避免承诺不准确。
 ```
 
+本地读取命令：
+
+```bash
+python3 tools/feishu/read_feishu_doc.py standard
+```
+
 ## 销售表达规则
 
 回复应当：
@@ -39,6 +45,12 @@
 - 有承接、有推进，但不强压。
 - 尊重客户，不居高临下。
 - 能直接复制发送。
+
+需要参考高成交话术库时，可使用：
+
+```bash
+python3 tools/feishu/read_feishu_doc.py talk-library
+```
 
 可以使用：
 

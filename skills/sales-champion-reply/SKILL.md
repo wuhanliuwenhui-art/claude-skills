@@ -26,6 +26,21 @@ description: 销冠话术助手。用于销售把客户问题、企微聊天上�
 
 开始任务前，先读取 `references/local-sources.md`（若存在）、`references/source-config-template.md` 和 `references/rules.md`。做成交复盘时，再读取 `references/iteration-workflow.md`。
 
+本地飞书资料读取工具随 skill 一起安装在 `tools/feishu/read_feishu_doc.py`。
+
+常用命令：
+
+```bash
+python3 tools/feishu/read_feishu_doc.py standard
+python3 tools/feishu/read_feishu_doc.py talk-library
+python3 tools/feishu/read_feishu_doc.py deal-table
+```
+
+- 涉及价格、权益、有效期、课程安排、交付内容等产品事实时，先读取 `standard`，再根据子文档链接读取具体标准资料。
+- 涉及异议处理、推进节奏、表达风格时，可以读取 `talk-library`。
+- 涉及成交判断或复盘索引时，可以读取 `deal-table`。
+- 如果工具读取失败，或读取后没有找到明确依据，必须提示销售“资料库里没有明确说明，建议找负责人确认”，不能编造。
+
 ## 工作流选择
 
 根据用户输入选择一种模式：
