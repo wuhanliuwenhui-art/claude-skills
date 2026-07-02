@@ -36,6 +36,20 @@ skills/sales-champion-reply/
 - 以企微聊天记录中的真实发送内容作为后续迭代事实，不要求销售额外登记最终话术
 - GitHub 仓库不保存内部飞书链接；安装后在本地配置资料源
 
+### 3. 洋哥爆款标题
+
+目录：
+
+```text
+skills/yangge-title/
+```
+
+作用：
+
+- 基于洋哥「AI超级个体实战密训」爆款标题方法论生成标题
+- 运用流量关键词、冲突悬念、圈子场景、数字、高情绪动词五要素
+- 适合公众号、小红书、知乎等平台标题生成和优化
+
 ---
 
 ## 安装方式
@@ -57,6 +71,14 @@ curl -fsSL https://raw.githubusercontent.com/wuhanliuwenhui-art/claude-skills/ma
 ```
 
 重复执行同一条命令会原地更新同一个 `sales-champion-reply` Skill，并保留本地 `references/local-sources.md` 资料源配置，不会新增另一个 Skill。
+
+安装洋哥爆款标题：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/wuhanliuwenhui-art/claude-skills/main/scripts/install-yangge-title.sh | bash
+```
+
+重复执行同一条命令会原地更新同一个 `yangge-title` Skill，不会新增另一个 Skill。
 
 如果要一键写入团队飞书资料源，可在私下发给团队成员类似命令：
 
@@ -85,6 +107,7 @@ git clone https://github.com/wuhanliuwenhui-art/claude-skills.git
 mkdir -p ~/.codex/skills
 cp -R claude-skills/skills/feishu-connect-guide ~/.codex/skills/
 cp -R claude-skills/skills/sales-champion-reply ~/.codex/skills/
+cp -R claude-skills/skills/yangge-title ~/.codex/skills/
 ```
 
 ---
@@ -116,7 +139,15 @@ cp -R claude-skills/skills/sales-champion-reply ~/.codex/skills/
 skills/
   feishu-connect-guide/
   sales-champion-reply/
+  yangge-title/
 scripts/
   install-feishu-connect-guide.sh
   install-sales-champion-reply.sh
+  install-yangge-title.sh
 ```
+
+规则：
+
+- 不同 Skill 都要保留，不能因为目录相似就删除。
+- 同一个 Skill 后续只更新同一个目录，不新建副本。
+- 不要在仓库根目录放 `SKILL.md`；所有 Skill 都放在 `skills/<skill-name>/` 下。

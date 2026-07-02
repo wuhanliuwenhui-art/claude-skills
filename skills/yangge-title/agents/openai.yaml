@@ -1,0 +1,4 @@
+interface:
+  display_name: "洋哥爆款标题"
+  short_description: "用洋哥方法论生成高点击标题"
+  default_prompt: "用洋哥爆款标题方法，帮我为这篇内容生成一组标题。"
